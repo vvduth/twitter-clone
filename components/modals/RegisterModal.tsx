@@ -4,27 +4,20 @@ import Input from "../Input";
 import Modal from "../Modal";
 import { useRegisterModal } from "@/hooks/useRegisterModal";
 
-const LoginModal = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
+const RegisterModal = () => {
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
 
-  const onToggle = useCallback(() => {
-    if (isLoading) {
-      return;
-    }
-
-    loginModal.onClose();
-    registerModal.onOpen();
-  }, [isLoading, loginModal, registerModal]);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [name, setName] = useState("");
+  const [userName, setUserName] = useState("");
 
   const onSubmit = useCallback(async () => {
     try {
       setIsLoading(true);
-      // TODO: add login
+      // TODO: add login and regoster
 
       loginModal.onClose();
     } catch (error) {
@@ -33,8 +26,28 @@ const LoginModal = () => {
       setIsLoading(false);
     }
   }, [loginModal]);
+
+  const onToggle = useCallback(() => {
+    if (isLoading) {
+        return;
+    }
+    registerModal.onClose(); 
+    loginModal.onOpen() ; 
+  }, [isLoading, loginModal, registerModal])
   const bodyContent = (
     <div className="flex flex-col gap-4">
+      <Input
+        placeholder="Name"
+        onChange={(e) => setName(e.target.value)}
+        value={name}
+        disabled={isLoading}
+      />
+      <Input
+        placeholder="Username"
+        onChange={(e) => setUserName(e.target.value)}
+        value={userName}
+        disabled={isLoading}
+      />
       <Input
         placeholder="Email"
         onChange={(e) => setEmail(e.target.value)}
@@ -49,17 +62,18 @@ const LoginModal = () => {
       />
     </div>
   );
+
   const footerContent = (
     <div className="text-neutral-400 text-center mt-4">
       <p>
-        Have no acc?{" "}
+        Have an account?{" "}
         <span
-          onClick={onToggle}
+        onClick={onToggle}
           className="
             text-white cursor-pointer hover:underline"
         >
           {" "}
-          Create an account
+          Login bra
         </span>
       </p>
     </div>
@@ -67,10 +81,10 @@ const LoginModal = () => {
   return (
     <Modal
       disabled={isLoading}
-      isOpen={loginModal.isOpen}
-      title="Login"
-      actionLabel="Login"
-      onClose={loginModal.onClose}
+      isOpen={registerModal.isOpen}
+      title="Register"
+      actionLabel="Create an account"
+      onClose={registerModal.onClose}
       onSubmit={onSubmit}
       body={bodyContent}
       footer={footerContent}
@@ -78,4 +92,4 @@ const LoginModal = () => {
   );
 };
 
-export default LoginModal;
+export default RegisterModal;
