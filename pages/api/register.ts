@@ -15,6 +15,7 @@ export default async function handler(
     const user = await prisma.user.create({
         data: {email, username, name, hasedPassword}
     });
+    res.status(200).json(user); 
   } catch (error) {
     console.log(error);
     res.status(404).end();
