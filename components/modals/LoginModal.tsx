@@ -1,6 +1,7 @@
 import { useLoginModal } from "@/hooks/useLoginModal";
 import React, { useCallback, useState } from "react";
 import Input from "../Input";
+import {signIn} from "next-auth/react"
 import Modal from "../Modal";
 import { useRegisterModal } from "@/hooks/useRegisterModal";
 
@@ -26,13 +27,15 @@ const LoginModal = () => {
       setIsLoading(true);
       // TODO: add login
 
+      await signIn("credentials", {email, password})
+
       loginModal.onClose();
     } catch (error) {
       console.log(error);
     } finally {
       setIsLoading(false);
     }
-  }, [loginModal]);
+  }, [loginModal, email, password]);
   const bodyContent = (
     <div className="flex flex-col gap-4">
       <Input
@@ -43,6 +46,7 @@ const LoginModal = () => {
       />
       <Input
         placeholder="Password"
+        type="password"
         onChange={(e) => setPassword(e.target.value)}
         value={password}
         disabled={isLoading}
