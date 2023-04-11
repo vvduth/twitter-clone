@@ -11,6 +11,7 @@ interface UserBioProps {
 const UserBio: React.FC<UserBioProps> = ({ userId }) => {
   const { data: currentUser } = useCurrentUser();
   const { data: fetchedUser } = useUser(userId);
+  console.log( fetchedUser)
 
   const editModal = useEditModal(); 
   const createdAt = useMemo(() => {

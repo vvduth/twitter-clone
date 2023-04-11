@@ -10,11 +10,11 @@ export default async function hander(
   }
 
   try {
-    const { currentUser } = await serverAuth(req);
+    const { currentUser } = await serverAuth(req,res);
 
     const { name, username, bio, profileImage, coverImage } = req.body;
 
-    if (!name || username) {
+    if (!name || !username) {
       throw new Error("Missing fields");
     }
 

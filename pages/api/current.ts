@@ -9,8 +9,8 @@ export default async function handler(
     return res.status(405).end();
   }
   try {
-    const { currentUser } = await serverAuth(req);
-    console.log("from current ts" + currentUser)
+    
+    const { currentUser } = await serverAuth(req, res);
     return res.status(200).json(currentUser);
   } catch (error) {
     console.log(error);
