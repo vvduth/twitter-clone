@@ -60,8 +60,11 @@ const UserBio: React.FC<UserBioProps> = ({ userId }) => {
                 </p>
                 <p className="text-neutral-500">followers</p>
             </div>
+           
         </div>
+
       </div>
+      <p className="text-white m-4 text-4xl font-semibold">Recent tweets</p>
     </div>
   );
 };
