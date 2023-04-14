@@ -31,6 +31,24 @@ export default async function handler(
 
     if (req.method === "POST") {
       updatedFollwingIds.push(userId);
+      try {
+        await prisma.notification.create({
+          data: {
+            body: "Someone followed you", 
+            userId
+          }
+        })
+        await prisma.user.update({
+          where:{
+            id: userId
+          },
+          data: {
+            hasNotification: true
+          }
+        })
+      } catch (error) {
+        console.log(error)
+      }
     }
     if (req.method === "DELETE") {
       updatedFollwingIds = updatedFollwingIds.filter(
