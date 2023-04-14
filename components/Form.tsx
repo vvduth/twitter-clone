@@ -25,7 +25,6 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
     try {
       setIsLoading(true);
       if (body.length === 0 ) {
-        console.log(body)
         toast.error("Please write soemthing")
         return; 
       }
